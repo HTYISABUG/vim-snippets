@@ -4,6 +4,14 @@ priority -50
 #                            TEXTMATE SNIPPETS                            #
 ###########################################################################
 
+snippet pr
+	print(${0})
+endsnippet
+
+snippet ppr
+	pprint(${0})
+endsnippet
+
 #! header
 snippet #! "Shebang header for python scripts" b
 #!/usr/bin/env python
@@ -489,7 +497,12 @@ def __coerce__(self, other):
 endsnippet
 
 snippet deff
-def ${1:fname}(`!p snip.rv = vim.eval('indent(".") ? "self" : ""')`$2):
+def ${1:fname}(${2}):
+	$0
+endsnippet
+
+snippet defm
+def ${1:mname}(self, ${2}):
 	$0
 endsnippet
 

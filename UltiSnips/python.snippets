@@ -213,8 +213,11 @@ def write_init_body(args, parents, snip):
 	parents = [p.strip() for p in parents.split(",")]
 	parents = [p for p in parents if p != 'object']
 
-	for p in parents:
-		snip += p + ".__init__(self)"
+	#for p in parents:
+		#snip += p + ".__init__(self)"
+	
+	if len(p) != 0:
+		snip += 'super().__init__()'
 
 	if parents:
 		snip.rv += '\n' + snip.mkline('', indent='')
@@ -270,7 +273,7 @@ class ${1:MyClass}(${2:object}):
 	`!p snip.rv = triple_quotes(snip)`${3:Docstring for $1. }`!p snip.rv = triple_quotes(snip)`
 
 	def __init__(self$4):
-		`!p snip.rv = triple_quotes(snip)`${5:TODO: to be defined1.}`!p
+		`!p snip.rv = triple_quotes(snip)`${5:TODO: to be defined.}`!p
 snip.rv = ""
 snip >> 2
 

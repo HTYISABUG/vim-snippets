@@ -27,7 +27,6 @@ endsnippet
 snippet with "with" b
 with ${1:expr}`!p snip.rv = " as " if t[2] else ""`${2:var}:
 	${3:${VISUAL:pass}}
-$0
 endsnippet
 
 snippet for "for loop" b
@@ -137,7 +136,7 @@ def format_arg(arg, style):
 	elif style == NORMAL:
 		return ":%s: TODO" % arg
 	elif style == GOOGLE:
-		return "%s (TODO): TODO" % arg
+		return "%s: TODO" % arg
 	elif style == JEDI:
 		return ":type %s: TODO" % arg
 	elif style == NUMPY:
@@ -213,22 +212,19 @@ def write_init_body(args, parents, snip):
 	parents = [p.strip() for p in parents.split(",")]
 	parents = [p for p in parents if p != 'object']
 
-	#for p in parents:
-		#snip += p + ".__init__(self)"
-	
-	if len(p) != 0:
-		snip += 'super().__init__()'
+	for p in parents:
+		snip += p + ".__init__(self)"
 
 	if parents:
 		snip.rv += '\n' + snip.mkline('', indent='')
 
 	for arg in args:
-		snip += "self._%s = %s" % (arg, arg)
+		snip += "self.__%s = %s" % (arg, arg)
 
 
 def write_slots_args(args, snip):
 	quote = get_quoting_style(snip)
-	arg_format = quote + '_%s' + quote
+	arg_format = quote + '__%s' + quote
 	args = [arg_format % arg for arg in args]
 	snip += '__slots__ = (%s,)' % ', '.join(args)
 
@@ -286,9 +282,7 @@ if args:
 
 write_init_body(args, t[2], snip)
 `
-		$0
 endsnippet
-
 
 snippet slotclass "class with slots and docstrings" b
 class ${1:MyClass}(${2:object}):
